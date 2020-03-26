@@ -1,0 +1,13 @@
+server:
+  port: 8001
+spring:
+  application:
+    name: cloud-eureka-Order-feign
+feign:
+  hystrix:
+    enabled: true
+eureka:
+  client:
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://localhost:8004/eureka/

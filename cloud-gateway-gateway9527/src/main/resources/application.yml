@@ -1,0 +1,32 @@
+server:
+  port: 9527
+
+spring:
+  application:
+    name: cloud-gateway
+  security:
+    user:
+      name: user
+      password: root
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: payment_routh
+          uri: lb://CLOUD-PROVIDER-HYSTRIX-PAYMENT
+          predicates:
+            - Path=/payment/circuit/**
+        - id : payment_routh2
+          uri: lb://CLOUD-GATEWAY
+          predicates:
+            - Path=/consumer/payment/**
+eureka:
+  instance:
+    hostname: cloud-gateway-service
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8004/eureka/
